@@ -1,3 +1,5 @@
+using System;
+
 namespace Training.Domain.Migrations
 {
     using System.Data.Entity.Migrations;
@@ -12,18 +14,39 @@ namespace Training.Domain.Migrations
 
         protected override void Seed(DataContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var musicCategory = new Category { Name = "Music" };
+            var movieCategory = new Category { Name = "Movie" };
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.Categories.AddOrUpdate(category => category.Id,
+                musicCategory,
+                movieCategory,
+                new Category { Name = "Sports" });
+
+            context.Posts.AddOrUpdate(post => post.Id,
+                new Post
+                {
+                    Body = "This is a music post 1.",
+                    CreationDateTimeUtc = new DateTime(2017, 2, 22, 12, 31, 00, DateTimeKind.Utc),
+                    Category = musicCategory
+                },
+                new Post
+                {
+                    Body = "This is a music post 2.",
+                    CreationDateTimeUtc = new DateTime(2017, 3, 2, 22, 14, 00, DateTimeKind.Utc),
+                    Category = musicCategory
+                },
+                new Post
+                {
+                    Body = "This is a movie post 1.",
+                    CreationDateTimeUtc = new DateTime(2017, 1, 22, 2, 15, 00, DateTimeKind.Utc),
+                    Category = musicCategory
+                },
+                new Post
+                {
+                    Body = "This is a movie post 2.",
+                    CreationDateTimeUtc = new DateTime(2017, 5, 15, 22, 7, 00, DateTimeKind.Utc),
+                    Category = musicCategory
+                });
         }
     }
 }
