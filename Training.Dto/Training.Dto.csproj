@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="CategoryDto.cs" />
     <Compile Include="DtoEntity.cs" />
+    <Compile Include="PostDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
