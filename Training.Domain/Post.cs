@@ -1,13 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Training.Domain
+﻿namespace Training.Domain
 {
-    public class Post
+    public class Post : Entity
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
-        
         public string Body { get; set; }
+
+        public virtual Category Category { get; set; }
     }
 }
