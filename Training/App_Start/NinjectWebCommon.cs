@@ -67,6 +67,7 @@ namespace Training.App_Start
         {
             kernel.Bind<DataContext>().ToSelf().InRequestScope();
             kernel.Bind<ICategoryRepository>().To<CategoryRepository>().InRequestScope();
+            kernel.Bind<IPostRepository>().To<PostRepository>().InRequestScope();
         }        
     }
 }

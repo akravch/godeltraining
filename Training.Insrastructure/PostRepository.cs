@@ -2,10 +2,11 @@
 using System.Linq;
 using Training.Domain;
 using Training.Dto;
+using Training.Infrastructure.Interfaces;
 
 namespace Training.Insrastructure
 {
-    public class PostRepository
+    public class PostRepository : IPostRepository
     {
         private readonly DataContext context;
 
