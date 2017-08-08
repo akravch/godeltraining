@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -122,6 +123,7 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_CategoriesPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -137,6 +139,18 @@
     <ProjectReference Include="..\Training.Domain\Training.Domain.csproj">
       <Project>{DA2998FA-E1D2-454B-85C1-80B2FD10AC2D}</Project>
       <Name>Training.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Training.Dto\Training.Dto.csproj">
+      <Project>{6D80C558-82A0-4A4B-976D-17AF9F01DDC4}</Project>
+      <Name>Training.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Training.Infrastructure.Interfaces\Training.Infrastructure.Interfaces.csproj">
+      <Project>{63BF86E7-3BE1-4CD0-BA81-906E1DD07C90}</Project>
+      <Name>Training.Infrastructure.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Training.Insrastructure\Training.Insrastructure.csproj">
+      <Project>{bbd631b3-38c0-4c5b-b630-943b46d8f25e}</Project>
+      <Name>Training.Insrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
