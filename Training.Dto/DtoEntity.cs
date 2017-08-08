@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Training.Domain
+namespace Training.Dto
 {
     public abstract class DtoEntity
     {

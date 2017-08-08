@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Training.Domain;
+using Training.Dto;
 
 namespace Training.Infrastructure.Interfaces
 {

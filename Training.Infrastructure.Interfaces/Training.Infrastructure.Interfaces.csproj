@@ -48,6 +48,10 @@
       <Project>{DA2998FA-E1D2-454B-85C1-80B2FD10AC2D}</Project>
       <Name>Training.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Training.Dto\Training.Dto.csproj">
+      <Project>{6D80C558-82A0-4A4B-976D-17AF9F01DDC4}</Project>
+      <Name>Training.Dto</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Training.Domain
+namespace Training.Dto
 {
     public class CategoryDto : DtoEntity
     {

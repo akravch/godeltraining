@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Training.Domain;
+using Training.Dto;
 using Training.Infrastructure.Interfaces;
 
 namespace Training.Insrastructure
