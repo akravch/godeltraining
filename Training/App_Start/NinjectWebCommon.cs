@@ -1,5 +1,9 @@
+using Training.Domain;
+using Training.Infrastructure.Interfaces;
+using Training.Insrastructure;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Training.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Training.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(Training.App_Start.NinjectWebCommon), "Stop")]
 
 namespace Training.App_Start
 {
@@ -61,6 +65,8 @@ namespace Training.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<DataContext>().ToSelf().InRequestScope();
+            kernel.Bind<ICategoryRepository>().To<CategoryRepository>().InRequestScope();
         }        
     }
 }
