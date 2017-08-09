@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using Training.Dto;
 using Training.Infrastructure.Interfaces;
+using Training.ViewModels;
 
 namespace Training.Controllers
 {
@@ -34,6 +36,55 @@ namespace Training.Controllers
             else
             {
                 result = View(postRepository.Posts.ToList());
+            }
+
+            return result;
+        }
+
+        public ActionResult NewPost()
+        {
+            var categories = categoryRepository.Categories.ToList();
+            var postViewModel = new NewPost
+            {
+                Categories = categories
+            };
+
+            return View(postViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NewPost(NewPost postViewModel)
+        {
+            ActionResult result;
+
+            var isModelValid = ModelState.IsValid;
+
+            if (isModelValid)
+            {
+                var selectedCategory = categoryRepository.Categories.FirstOrDefault(category => category.Id == postViewModel.SelectedCategoryId);
+
+                if (selectedCategory != null)
+                {
+                    postRepository.Add(new PostDto
+                    {
+                        Body = postViewModel.Body,
+                        Category = selectedCategory,
+                        CreationDateTimeUtc = DateTime.UtcNow
+                    });
+                    result = RedirectToAction("Posts", new { category = selectedCategory.Name });
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(postViewModel.SelectedCategoryId), "Selected category does not exist");
+                    postViewModel.Categories = categoryRepository.Categories.ToList();
+                    result = View(postViewModel);
+                }
+            }
+            else
+            {
+                postViewModel.Categories = categoryRepository.Categories.ToList();
+                result = View(postViewModel);
             }
 
             return result;
