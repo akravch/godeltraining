@@ -6,6 +6,7 @@ using Training.Infrastructure.Interfaces;
 
 namespace Training.Insrastructure
 {
+    // TODO: Does it make sense to have a base class for the repositories?
     public class CategoryRepository : ICategoryRepository
     {
         private readonly DataContext context;
@@ -19,10 +20,12 @@ namespace Training.Insrastructure
         {
             Id = category.Id,
             Name = category.Name,
+            // TODO: Is that okay to always have posts included?
             Posts = category.Posts.Select(post => new PostDto
             {
                 Body = post.Body,
                 CreationDateTimeUtc = post.CreationDateTimeUtc
+                // TODO: Category = ???
             }).ToList()
         });
 

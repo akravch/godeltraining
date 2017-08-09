@@ -12,6 +12,7 @@ namespace Training.Controllers
         private readonly IPostRepository postRepository;
         private readonly ICategoryRepository categoryRepository;
 
+        // TODO: Should I inject services instead?
         public HomeController(IPostRepository postRepository, ICategoryRepository categoryRepository)
         {
             this.postRepository = postRepository;
@@ -77,6 +78,8 @@ namespace Training.Controllers
                 else
                 {
                     ModelState.AddModelError(nameof(postViewModel.SelectedCategoryId), "Selected category does not exist");
+
+                    // TODO: Is there a way to preserve the categories without requesting them from the db again?
                     postViewModel.Categories = categoryRepository.Categories.ToList();
                     result = View(postViewModel);
                 }
