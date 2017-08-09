@@ -50,6 +50,7 @@
     <Compile Include="Category.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="IDataContext.cs" />
     <Compile Include="Migrations\201708081000370_InitialCreate.cs" />
     <Compile Include="Migrations\201708081000370_InitialCreate.Designer.cs">
       <DependentUpon>201708081000370_InitialCreate.cs</DependentUpon>

@@ -65,7 +65,7 @@ namespace Training.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<DataContext>().ToSelf().InRequestScope();
+            kernel.Bind<IDataContext>().To<DataContext>().InRequestScope();
             kernel.Bind<ICategoryRepository>().To<CategoryRepository>().InRequestScope();
             kernel.Bind<IPostRepository>().To<PostRepository>().InRequestScope();
         }        

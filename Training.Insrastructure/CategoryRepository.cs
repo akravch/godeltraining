@@ -8,9 +8,9 @@ namespace Training.Insrastructure
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private readonly DataContext context;
+        private readonly IDataContext context;
 
-        public CategoryRepository(DataContext context)
+        public CategoryRepository(IDataContext context)
         {
             this.context = context;
         }

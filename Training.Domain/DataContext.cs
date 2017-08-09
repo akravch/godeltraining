@@ -2,7 +2,7 @@
 
 namespace Training.Domain
 {
-    public class DataContext : DbContext
+    public class DataContext : DbContext, IDataContext
     {
         public IDbSet<Post> Posts { get; set; }
 

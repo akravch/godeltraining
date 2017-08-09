@@ -8,9 +8,9 @@ namespace Training.Insrastructure
 {
     public class PostRepository : IPostRepository
     {
-        private readonly DataContext context;
+        private readonly IDataContext context;
 
-        public PostRepository(DataContext context)
+        public PostRepository(IDataContext context)
         {
             this.context = context;
         }
