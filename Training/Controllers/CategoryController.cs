@@ -13,7 +13,6 @@ namespace Training.Controllers
         }
 
         [ChildActionOnly]
-        // TODO: This also gets all the posts even though we don't need it here
         public PartialViewResult Categories() => PartialView("_CategoriesPartial", categoryRepository.Categories);
     }
 }

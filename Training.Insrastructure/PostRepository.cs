@@ -17,7 +17,6 @@ namespace Training.Insrastructure
 
         public IQueryable<PostDto> Posts => context.Posts.Select(post => new PostDto
         {
-            // TODO: Mapper?
             Id = post.Id,
             Body = post.Body,
             CreationDateTimeUtc = post.CreationDateTimeUtc,

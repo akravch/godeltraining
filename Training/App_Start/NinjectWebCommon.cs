@@ -65,7 +65,6 @@ namespace Training.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            // TODO: Is this correct DI for DbContext?
             kernel.Bind<DataContext>().ToSelf().InRequestScope();
             kernel.Bind<ICategoryRepository>().To<CategoryRepository>().InRequestScope();
             kernel.Bind<IPostRepository>().To<PostRepository>().InRequestScope();

@@ -12,7 +12,6 @@ namespace Training.ViewModels
         [MaxLength(1000)]
         public string Body { get; set; }
 
-        // TODO: Is is possible to have CategoryDto instead of Guid?
         [Display(Name = "Category")]
         public Guid SelectedCategoryId { get; set; }
 
