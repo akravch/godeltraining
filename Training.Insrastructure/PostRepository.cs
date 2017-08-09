@@ -15,7 +15,17 @@ namespace Training.Insrastructure
             this.context = context;
         }
 
-        public IQueryable<PostDto> Posts => context.Posts.Select(post => ToDto(post));
+        public IQueryable<PostDto> Posts => context.Posts.Select(post => new PostDto
+        {
+            Id = post.Id,
+            Body = post.Body,
+            CreationDateTimeUtc = post.CreationDateTimeUtc,
+            Category = new CategoryDto
+            {
+                Id = post.Category.Id,
+                Name = post.Category.Name
+            }
+        });
 
         public void Add(PostDto postDto)
         {
@@ -66,21 +76,6 @@ namespace Training.Insrastructure
                 context.Posts.Remove(postToRemove);
                 context.SaveChanges();
             }
-        }
-
-        private static PostDto ToDto(Post post)
-        {
-            return new PostDto
-            {
-                Id = post.Id,
-                Body = post.Body,
-                CreationDateTimeUtc = post.CreationDateTimeUtc,
-                Category = new CategoryDto
-                {
-                    Id = post.Category.Id,
-                    Name = post.Category.Name
-                }
-            };
         }
     }
 }

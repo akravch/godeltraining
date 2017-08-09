@@ -15,7 +15,16 @@ namespace Training.Insrastructure
             this.context = context;
         }
 
-        public IQueryable<CategoryDto> Categories => context.Categories.Select(category => new CategoryDto { Id = category.Id, Name = category.Name });
+        public IQueryable<CategoryDto> Categories => context.Categories.Select(category => new CategoryDto
+        {
+            Id = category.Id,
+            Name = category.Name,
+            Posts = category.Posts.Select(post => new PostDto
+            {
+                Body = post.Body,
+                CreationDateTimeUtc = post.CreationDateTimeUtc
+            }).ToList()
+        });
 
         public void Add(CategoryDto categoryDto)
         {
