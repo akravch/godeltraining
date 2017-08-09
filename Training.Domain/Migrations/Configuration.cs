@@ -39,13 +39,13 @@ namespace Training.Domain.Migrations
                 {
                     Body = "This is a movie post 1.",
                     CreationDateTimeUtc = new DateTime(2017, 1, 22, 2, 15, 00, DateTimeKind.Utc),
-                    Category = musicCategory
+                    Category = movieCategory
                 },
                 new Post
                 {
                     Body = "This is a movie post 2.",
                     CreationDateTimeUtc = new DateTime(2017, 5, 15, 22, 7, 00, DateTimeKind.Utc),
-                    Category = musicCategory
+                    Category = movieCategory
                 });
         }
     }
