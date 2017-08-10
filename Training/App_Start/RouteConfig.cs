@@ -16,9 +16,17 @@ namespace Training
             );
 
             routes.MapRoute(
-                name: "Posts",
-                url: "Posts/{category}",
-                defaults: new { controller = "Posts", action = "Index", category = UrlParameter.Optional }
+                name: "PostsByCategory",
+                url: "Posts/{category}/{page}",
+                defaults: new { controller = "Posts", action = "Index", category = (string)null, page = UrlParameter.Optional },
+                constraints: new { page = @"\d+" }
+            );
+
+            routes.MapRoute(
+                name: "AllPosts",
+                url: "Posts/{page}",
+                defaults: new { controller = "Posts", action = "Index", page = UrlParameter.Optional },
+                constraints: new { page = @"\d+" }
             );
 
             routes.MapRoute(

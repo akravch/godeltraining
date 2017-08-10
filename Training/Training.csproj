@@ -155,6 +155,7 @@
     <Compile Include="Models\TempDataConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\EditPostViewModel.cs" />
+    <Compile Include="ViewModels\PostPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

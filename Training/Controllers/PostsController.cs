@@ -13,6 +13,7 @@ namespace Training.Controllers
 {
     public class PostsController : Controller
     {
+        private const int PageSize = 3;
         private readonly IPostService postService;
         private readonly ICategoryService categoryService;
 
@@ -22,9 +23,23 @@ namespace Training.Controllers
             this.categoryService = categoryService;
         }
 
-        public ActionResult Index(string category = null)
+        public ActionResult Index(string category = null, int page = 1)
         {
-            var posts = !string.IsNullOrEmpty(category) ? postService.GetPostsByCategory(category) : postService.GetPosts();
+            var pageOffset = (page - 1) * PageSize;
+            int postCount;
+            ICollection<Post> posts;
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                posts = postService.GetPostsByCategory(category, pageOffset, PageSize);
+                postCount = postService.Count(category);
+            }
+            else
+            {
+                posts = postService.GetPosts(pageOffset, PageSize);
+                postCount = postService.Count();
+            }
+
             var postDtos = posts.Select(post => new PostDto
             {
                 Id = post.Id,
@@ -32,8 +47,16 @@ namespace Training.Controllers
                 Body = post.Body,
                 CreationDateTimeUtc = post.CreationDateTimeUtc
             }).ToList();
+            var totalPages = (int)Math.Ceiling(postCount / (double)PageSize);
+            var pageViewModel = new PostPageViewModel
+            {
+                CurrentPage = page,
+                TotalPages = totalPages,
+                CategoryName = category,
+                Posts = postDtos
+            };
 
-            return View(postDtos);
+            return View(pageViewModel);
         }
 
         public ActionResult New()
