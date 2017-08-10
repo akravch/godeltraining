@@ -14,8 +14,9 @@ else
 {
     foreach (var post in Model)
     {
+        <h5>@post.Title</h5>
         <div>@post.Body</div>
         <div>@post.CreationDateTimeUtc</div>
-        <br />
+        <hr />
     }
 }

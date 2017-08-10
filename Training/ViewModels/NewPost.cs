@@ -7,9 +7,14 @@ namespace Training.ViewModels
 {
     public class NewPost
     {
+        [Display(Name = "Title")]
+        [Required]
+        [MaxLength(200)]
+        public string Title { get; set; }
+
         [Display(Name = "Body")]
         [Required]
-        [MaxLength(1000)]
+        [MaxLength(2000)]
         public string Body { get; set; }
 
         [Display(Name = "Category")]

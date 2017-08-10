@@ -65,6 +65,7 @@ namespace Training.Controllers
                 {
                     postService.AddNewPost(new Post
                     {
+                        Title = postViewModel.Title,
                         Body = postViewModel.Body,
                         Category = selectedCategory,
                         CreationDateTimeUtc = DateTime.UtcNow
