@@ -15,10 +15,8 @@
         @Html.ActionLink("New Post", "NewPost", "Home")
     </div>
 </div>
-<div class="row">
-    <div class="col-md-2">@{Html.RenderAction("Categories", "Home");}</div>
-    <div class="col-md-7 container">@RenderBody()</div>
-</div>
+<div class="category-list">@{Html.RenderAction("Categories", "Home");}</div>
+<div class="main-section">@RenderBody()</div>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required: false)

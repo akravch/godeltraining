@@ -14,7 +14,17 @@ else
 {
     foreach (var post in Model)
     {
-        <h5>@post.Title</h5>
+        <div class="post-header-container">
+            <h4 class="post-title">@post.Title</h4>
+            <div class="post-link-container">
+                <a href="#" class="post-link">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+                <a href="#" class="post-link">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+            </div>
+        </div>
         <div>@post.Body</div>
         <div>@post.CreationDateTimeUtc</div>
         <hr />

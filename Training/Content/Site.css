@@ -1,0 +1,28 @@
+﻿.post-title {
+    font-weight: bold;
+    float: left
+}
+
+.category-list {
+    float: left;
+}
+
+.main-section {
+    float: left;
+    padding-left: 100px;
+    width: 70%;
+}
+
+.post-header-container {
+    display: inline-block;
+}
+
+.post-link-container {
+    float: left;
+    margin-left: 15px;
+    margin-top: 8px;
+}
+
+.post-link {
+    margin-right: 3px;
+}
