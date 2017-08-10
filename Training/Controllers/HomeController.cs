@@ -86,6 +86,9 @@ namespace Training.Controllers
             return result;
         }
 
+        [ChildActionOnly]
+        public PartialViewResult Categories() => PartialView("_CategoriesPartial", GetCategories());
+
         private IList<CategoryDto> GetCategories()
         {
             return categoryService.GetCategories().Select(category => new CategoryDto
