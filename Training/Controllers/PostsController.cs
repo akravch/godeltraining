@@ -9,23 +9,18 @@ using Training.ViewModels;
 
 namespace Training.Controllers
 {
-    public class HomeController : Controller
+    public class PostsController : Controller
     {
         private readonly IPostService postService;
         private readonly ICategoryService categoryService;
 
-        public HomeController(IPostService postService, ICategoryService categoryService)
+        public PostsController(IPostService postService, ICategoryService categoryService)
         {
             this.postService = postService;
             this.categoryService = categoryService;
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult Posts(string category = null)
+        public ActionResult Index(string category = null)
         {
             var posts = !string.IsNullOrEmpty(category) ? postService.GetPostsByCategory(category) : postService.GetPosts();
             var postDtos = posts.Select(post => new PostDto
@@ -39,7 +34,7 @@ namespace Training.Controllers
             return View(postDtos);
         }
 
-        public ActionResult NewPost()
+        public ActionResult New()
         {
             var postViewModel = new NewPost
             {
@@ -51,7 +46,7 @@ namespace Training.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult NewPost(NewPost postViewModel)
+        public ActionResult New(NewPost postViewModel)
         {
             ActionResult result;
 
@@ -70,7 +65,7 @@ namespace Training.Controllers
                         Category = selectedCategory,
                         CreationDateTimeUtc = DateTime.UtcNow
                     });
-                    result = RedirectToAction("Posts", new { category = selectedCategory.Name });
+                    result = RedirectToAction("Index", new { category = selectedCategory.Name });
                 }
                 else
                 {
