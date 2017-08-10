@@ -15,5 +15,7 @@ namespace Training.Infrastructure.Interfaces
         void AddNewPost(Post post);
 
         void UpdatePost(Post post);
+
+        void DeletePost(Post post);
     }
 }

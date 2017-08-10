@@ -49,5 +49,16 @@ namespace Training.Insrastructure
                 context.SaveChanges();
             }
         }
+
+        public void DeletePost(Post post)
+        {
+            var existingPost = context.Posts.FirstOrDefault(p => p.Id == post.Id);
+
+            if (existingPost != null)
+            {
+                context.Posts.Remove(existingPost);
+                context.SaveChanges();
+            }
+        }
     }
 }
