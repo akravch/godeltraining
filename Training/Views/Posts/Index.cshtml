@@ -1,10 +1,22 @@
-﻿@model ICollection<Training.Dto.PostDto>
+﻿@using Training.Models
+@model ICollection<Training.Dto.PostDto>
 
 @{
     ViewBag.Title = "Posts";
 }
 
 <h2>Posts</h2>
+
+@{
+    var postChangedDescription = TempData[TempDataConstants.PostChanged];
+
+    if (postChangedDescription != null)
+    {
+        <div class="text-info">
+            <p>@postChangedDescription</p>
+        </div>
+    }
+}
 
 @if (Model.Count == 0)
 {

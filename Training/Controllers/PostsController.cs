@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Training.Domain;
 using Training.Dto;
 using Training.Infrastructure.Interfaces;
+using Training.Models;
 using Training.ViewModels;
 
 namespace Training.Controllers
@@ -65,6 +66,7 @@ namespace Training.Controllers
                         Category = selectedCategory,
                         CreationDateTimeUtc = DateTime.UtcNow
                     });
+                    TempData[TempDataConstants.PostChanged] = "The new post has been succesfully published";
                     result = RedirectToAction("Index", new { category = selectedCategory.Name });
                 }
                 else
@@ -128,6 +130,7 @@ namespace Training.Controllers
                     };
 
                     postService.UpdatePost(post);
+                    TempData[TempDataConstants.PostChanged] = "The post has been succesfully saved";
                     result = RedirectToAction("Index", new { category = selectedCategory.Name });
                 }
                 else
@@ -158,7 +161,8 @@ namespace Training.Controllers
                 if (post != null)
                 {
                     postService.DeletePost(post);
-                    
+                    TempData[TempDataConstants.PostChanged] = "The post has been succesfully deleted";
+
                     return Redirect(Request.UrlReferrer.AbsolutePath);
                 }
             }
