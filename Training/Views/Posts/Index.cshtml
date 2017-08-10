@@ -17,7 +17,7 @@ else
         <div class="post-header-container">
             <h4 class="post-title">@post.Title</h4>
             <div class="post-link-container">
-                <a href="#" class="post-link">
+                <a href="@Url.Action("Edit", "Posts", new { id = post.Id.ToString("N") })" class="post-link">
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
                 <a href="#" class="post-link">

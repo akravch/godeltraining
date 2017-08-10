@@ -36,7 +36,7 @@ namespace Training.Controllers
 
         public ActionResult New()
         {
-            var postViewModel = new NewPost
+            var postViewModel = new EditPostViewModel
             {
                 Categories = GetCategories()
             };
@@ -46,7 +46,7 @@ namespace Training.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult New(NewPost postViewModel)
+        public ActionResult New(EditPostViewModel postViewModelViewModel)
         {
             ActionResult result;
 
@@ -54,14 +54,14 @@ namespace Training.Controllers
 
             if (isModelValid)
             {
-                var selectedCategory = categoryService.GetCategoryById(postViewModel.SelectedCategoryId);
+                var selectedCategory = categoryService.GetCategoryById(postViewModelViewModel.SelectedCategoryId);
 
                 if (selectedCategory != null)
                 {
                     postService.AddNewPost(new Post
                     {
-                        Title = postViewModel.Title,
-                        Body = postViewModel.Body,
+                        Title = postViewModelViewModel.Title,
+                        Body = postViewModelViewModel.Body,
                         Category = selectedCategory,
                         CreationDateTimeUtc = DateTime.UtcNow
                     });
@@ -69,15 +69,78 @@ namespace Training.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(nameof(postViewModel.SelectedCategoryId), "Selected category does not exist");
-                    postViewModel.Categories = GetCategories();
-                    result = View(postViewModel);
+                    ModelState.AddModelError(nameof(postViewModelViewModel.SelectedCategoryId), "Selected category does not exist");
+                    postViewModelViewModel.Categories = GetCategories();
+                    result = View(postViewModelViewModel);
                 }
             }
             else
             {
-                postViewModel.Categories = GetCategories();
-                result = View(postViewModel);
+                postViewModelViewModel.Categories = GetCategories();
+                result = View(postViewModelViewModel);
+            }
+
+            return result;
+        }
+
+        public ActionResult Edit(string id)
+        {
+            Guid guid;
+
+            if (Guid.TryParse(id, out guid))
+            {
+                var post = postService.GetPostById(guid);
+
+                if (post != null)
+                {
+                    var postViewModel = new EditPostViewModel
+                    {
+                        Title = post.Title,
+                        Body = post.Body,
+                        Categories = GetCategories(),
+                        SelectedCategoryId = post.Category.Id
+                    };
+
+                    return View(postViewModel);
+                }
+            }
+
+            return HttpNotFound();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EditPostViewModel postViewModelViewModel)
+        {
+            ActionResult result;
+
+            if (ModelState.IsValid)
+            {
+                var selectedCategory = categoryService.GetCategoryById(postViewModelViewModel.SelectedCategoryId);
+
+                if (selectedCategory != null)
+                {
+                    var post = new Post
+                    {
+                        Id = postViewModelViewModel.Id,
+                        Title = postViewModelViewModel.Title,
+                        Body = postViewModelViewModel.Body,
+                        Category = selectedCategory
+                    };
+
+                    postService.UpdatePost(post);
+                    result = RedirectToAction("Index", new { category = selectedCategory.Name });
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(EditPostViewModel.SelectedCategoryId), "Selected category does not exist");
+                    postViewModelViewModel.Categories = GetCategories();
+                    result = View(postViewModelViewModel);
+                }
+            }
+            else
+            {
+                postViewModelViewModel.Categories = GetCategories();
+                result = View(postViewModelViewModel);
             }
 
             return result;
