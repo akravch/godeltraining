@@ -14,15 +14,20 @@ else
 {
     foreach (var post in Model)
     {
+        var formattedPostId = post.Id.ToString("N");
+
         <div class="post-header-container">
             <h4 class="post-title">@post.Title</h4>
             <div class="post-link-container">
-                <a href="@Url.Action("Edit", "Posts", new { id = post.Id.ToString("N") })" class="post-link">
+                <a href="@Url.Action("Edit", "Posts", new { id = formattedPostId })" class="post-link">
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
-                <a href="#" class="post-link">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
+                @using (Html.BeginForm("Delete", "Posts", new { id = formattedPostId }, FormMethod.Post, new { @class = "post-link" }))
+                {
+                    <button type="submit" class="delete-button">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                }
             </div>
         </div>
         <div>@post.Body</div>

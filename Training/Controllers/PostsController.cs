@@ -146,6 +146,26 @@ namespace Training.Controllers
             return result;
         }
 
+        [HttpPost]
+        public ActionResult Delete(string id)
+        {
+            Guid guid;
+
+            if (Guid.TryParse(id, out guid))
+            {
+                var post = postService.GetPostById(guid);
+
+                if (post != null)
+                {
+                    postService.DeletePost(post);
+                    
+                    return Redirect(Request.UrlReferrer.AbsolutePath);
+                }
+            }
+
+            return HttpNotFound();
+        }
+
         [ChildActionOnly]
         public PartialViewResult Categories() => PartialView("_CategoriesPartial", GetCategories());
 
