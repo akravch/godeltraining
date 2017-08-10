@@ -66,8 +66,8 @@ namespace Training.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IDataContext>().To<DataContext>().InRequestScope();
-            kernel.Bind<ICategoryRepository>().To<CategoryRepository>().InRequestScope();
-            kernel.Bind<IPostRepository>().To<PostRepository>().InRequestScope();
+            kernel.Bind<IPostService>().To<PostService>().InRequestScope();
+            kernel.Bind<ICategoryService>().To<CategoryService>().InRequestScope();
         }        
     }
 }

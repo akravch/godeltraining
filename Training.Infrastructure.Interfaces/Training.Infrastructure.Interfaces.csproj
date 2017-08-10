@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICategoryRepository.cs" />
-    <Compile Include="IPostRepository.cs" />
+    <Compile Include="ICategoryService.cs" />
+    <Compile Include="IPostService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

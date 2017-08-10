@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Training.Domain;
 using Training.Dto;
 using Training.Infrastructure.Interfaces;
 using Training.ViewModels;
@@ -9,13 +11,13 @@ namespace Training.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IPostRepository postRepository;
-        private readonly ICategoryRepository categoryRepository;
+        private readonly IPostService postService;
+        private readonly ICategoryService categoryService;
 
-        public HomeController(IPostRepository postRepository, ICategoryRepository categoryRepository)
+        public HomeController(IPostService postService, ICategoryService categoryService)
         {
-            this.postRepository = postRepository;
-            this.categoryRepository = categoryRepository;
+            this.postService = postService;
+            this.categoryService = categoryService;
         }
 
         public ActionResult Index()
@@ -25,28 +27,22 @@ namespace Training.Controllers
 
         public ActionResult Posts(string category = null)
         {
-            ActionResult result;
-
-            if (!string.IsNullOrEmpty(category))
+            var posts = !string.IsNullOrEmpty(category) ? postService.GetPostsByCategory(category) : postService.GetPosts();
+            var postDtos = posts.Select(post => new PostDto
             {
-                var foundCategory = categoryRepository.Categories.FirstOrDefault(existingCategory => existingCategory.Name.Equals(category, StringComparison.OrdinalIgnoreCase));
+                Id = post.Id,
+                Body = post.Body,
+                CreationDateTimeUtc = post.CreationDateTimeUtc
+            }).ToList();
 
-                result = foundCategory != null ? View(foundCategory.Posts) : (ActionResult)HttpNotFound();
-            }
-            else
-            {
-                result = View(postRepository.Posts.ToList());
-            }
-
-            return result;
+            return View(postDtos);
         }
 
         public ActionResult NewPost()
         {
-            var categories = categoryRepository.Categories.ToList();
             var postViewModel = new NewPost
             {
-                Categories = categories
+                Categories = GetCategories()
             };
 
             return View(postViewModel);
@@ -62,11 +58,11 @@ namespace Training.Controllers
 
             if (isModelValid)
             {
-                var selectedCategory = categoryRepository.Categories.FirstOrDefault(category => category.Id == postViewModel.SelectedCategoryId);
+                var selectedCategory = categoryService.GetCategoryById(postViewModel.SelectedCategoryId);
 
                 if (selectedCategory != null)
                 {
-                    postRepository.Add(new PostDto
+                    postService.AddNewPost(new Post
                     {
                         Body = postViewModel.Body,
                         Category = selectedCategory,
@@ -77,17 +73,26 @@ namespace Training.Controllers
                 else
                 {
                     ModelState.AddModelError(nameof(postViewModel.SelectedCategoryId), "Selected category does not exist");
-                    postViewModel.Categories = categoryRepository.Categories.ToList();
+                    postViewModel.Categories = GetCategories();
                     result = View(postViewModel);
                 }
             }
             else
             {
-                postViewModel.Categories = categoryRepository.Categories.ToList();
+                postViewModel.Categories = GetCategories();
                 result = View(postViewModel);
             }
 
             return result;
+        }
+
+        private IList<CategoryDto> GetCategories()
+        {
+            return categoryService.GetCategories().Select(category => new CategoryDto
+            {
+                Id = category.Id,
+                Name = category.Name
+            }).ToList();
         }
     }
 }
