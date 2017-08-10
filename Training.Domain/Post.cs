@@ -9,10 +9,12 @@ namespace Training.Domain
             CreationDateTimeUtc = DateTime.UtcNow;
         }
 
+        public string Title { get; set; }
+
         public string Body { get; set; }
 
-        public virtual Category Category { get; set; }
-
         public DateTime CreationDateTimeUtc { get; set; }
+
+        public virtual Category Category { get; set; }
     }
 }

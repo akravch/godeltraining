@@ -59,6 +59,10 @@
     <Compile Include="Migrations\201708081031156_AddPostDate.Designer.cs">
       <DependentUpon>201708081031156_AddPostDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708100748588_AddPostTitle.cs" />
+    <Compile Include="Migrations\201708100748588_AddPostTitle.Designer.cs">
+      <DependentUpon>201708100748588_AddPostTitle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +77,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708081031156_AddPostDate.resx">
       <DependentUpon>201708081031156_AddPostDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708100748588_AddPostTitle.resx">
+      <DependentUpon>201708100748588_AddPostTitle.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -31,6 +31,7 @@ namespace Training.Controllers
             var postDtos = posts.Select(post => new PostDto
             {
                 Id = post.Id,
+                Title = post.Title,
                 Body = post.Body,
                 CreationDateTimeUtc = post.CreationDateTimeUtc
             }).ToList();
