@@ -16,14 +16,35 @@ namespace Training.Insrastructure
             this.context = context;
         }
 
+        public int Count()
+        {
+            return context.Posts.Count();
+        }
+
         public ICollection<Post> GetPosts()
         {
             return context.Posts.ToList();
         }
 
+        public ICollection<Post> GetPosts(int offset, int count)
+        {
+            return context.Posts.Skip(offset).Take(count).ToList();
+        }
+
         public ICollection<Post> GetPostsByCategory(string categoryName)
         {
-            return context.Posts.Include(post => post.Category).Where(post => post.Category.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase)).ToList();
+            return context.Posts.Include(post => post.Category)
+                .Where(post => post.Category.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+
+        public ICollection<Post> GetPostsByCategory(string categoryName, int offset, int count)
+        {
+            return context.Posts
+                .Skip(offset)
+                .Take(count)
+                .Where(post => post.Category.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase))
+                .ToList();
         }
 
         public Post GetPostById(Guid id)

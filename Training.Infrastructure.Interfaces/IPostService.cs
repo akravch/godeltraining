@@ -6,9 +6,15 @@ namespace Training.Infrastructure.Interfaces
 {
     public interface IPostService
     {
+        int Count();
+
         ICollection<Post> GetPosts();
 
+        ICollection<Post> GetPosts(int offset, int count);
+
         ICollection<Post> GetPostsByCategory(string categoryName);
+
+        ICollection<Post> GetPostsByCategory(string categoryName, int offset, int count);
 
         Post GetPostById(Guid id);
 
