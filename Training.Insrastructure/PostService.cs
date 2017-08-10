@@ -21,6 +21,13 @@ namespace Training.Insrastructure
             return context.Posts.Count();
         }
 
+        public int Count(string categoryName)
+        {
+            return context.Posts
+                .Include(post => post.Category)
+                .Count(post => post.Category.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase));
+        }
+
         public ICollection<Post> GetPosts()
         {
             return context.Posts.ToList();
@@ -28,7 +35,11 @@ namespace Training.Insrastructure
 
         public ICollection<Post> GetPosts(int offset, int count)
         {
-            return context.Posts.Skip(offset).Take(count).ToList();
+            return context.Posts
+                .OrderByDescending(post => post.CreationDateTimeUtc)
+                .Skip(offset)
+                .Take(count)
+                .ToList();
         }
 
         public ICollection<Post> GetPostsByCategory(string categoryName)
@@ -41,9 +52,10 @@ namespace Training.Insrastructure
         public ICollection<Post> GetPostsByCategory(string categoryName, int offset, int count)
         {
             return context.Posts
+                .Where(post => post.Category.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase))
+                .OrderByDescending(post => post.CreationDateTimeUtc)
                 .Skip(offset)
                 .Take(count)
-                .Where(post => post.Category.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
 

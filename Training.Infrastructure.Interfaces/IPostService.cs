@@ -8,6 +8,8 @@ namespace Training.Infrastructure.Interfaces
     {
         int Count();
 
+        int Count(string categoryName);
+
         ICollection<Post> GetPosts();
 
         ICollection<Post> GetPosts(int offset, int count);
