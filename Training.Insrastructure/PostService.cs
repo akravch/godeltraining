@@ -26,10 +26,28 @@ namespace Training.Insrastructure
             return context.Posts.Include(post => post.Category).Where(post => post.Category.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
+        public Post GetPostById(Guid id)
+        {
+            return context.Posts.Include(post => post.Category).FirstOrDefault(post => post.Id == id);
+        }
+
         public void AddNewPost(Post post)
         {
             context.Posts.Add(post);
             context.SaveChanges();
+        }
+
+        public void UpdatePost(Post post)
+        {
+            var existingPost = context.Posts.FirstOrDefault(p => p.Id == post.Id);
+
+            if (existingPost != null)
+            {
+                existingPost.Title = post.Title;
+                existingPost.Body = post.Body;
+                existingPost.Category = post.Category;
+                context.SaveChanges();
+            }
         }
     }
 }

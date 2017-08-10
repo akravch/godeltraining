@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Training.Domain;
 
 namespace Training.Infrastructure.Interfaces
@@ -9,6 +10,10 @@ namespace Training.Infrastructure.Interfaces
 
         ICollection<Post> GetPostsByCategory(string categoryName);
 
+        Post GetPostById(Guid id);
+
         void AddNewPost(Post post);
+
+        void UpdatePost(Post post);
     }
 }
