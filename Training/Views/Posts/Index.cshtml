@@ -1,4 +1,6 @@
-﻿@using Training.Models
+﻿@using System.Globalization
+@using System.Web.Optimization
+@using Training.Models
 @model ICollection<Training.Dto.PostDto>
 
 @{
@@ -43,7 +45,11 @@ else
             </div>
         </div>
         <div>@post.Body</div>
-        <div>@post.CreationDateTimeUtc</div>
+        <div>
+            <span data-utc-time="@post.CreationDateTimeUtc.ToString(CultureInfo.InvariantCulture)"></span>
+        </div>
         <hr />
     }
 }
+
+@Scripts.Render("~/bundles/DateTimeConverter")
