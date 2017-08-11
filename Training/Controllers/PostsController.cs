@@ -146,6 +146,33 @@ namespace Training.Controllers
             return HttpNotFound();
         }
 
+        public ActionResult EditWithCollection()
+        {
+            var viewModel = new ViewModelWithCollection
+            {
+                Name = "View Model With Collection Name",
+                Collection = new List<CollectionItem>
+                {
+                    new CollectionItem { Name = "First Item" },
+                    new CollectionItem { Name = "Second Item" },
+                    new CollectionItem { Name = "Third Item" }
+                }
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult EditWithCollection(ViewModelWithCollection viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(viewModel);
+        }
+
         [ChildActionOnly]
         public PartialViewResult Categories() => PartialView("_CategoriesPartial", GetCategories());
 

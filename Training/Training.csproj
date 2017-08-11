@@ -154,8 +154,10 @@
     </Compile>
     <Compile Include="Models\TempDataConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CollectionItem.cs" />
     <Compile Include="ViewModels\EditPostViewModel.cs" />
     <Compile Include="ViewModels\PostPageViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelWithCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -167,6 +169,8 @@
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Posts\New.cshtml" />
     <Content Include="Views\Posts\Edit.cshtml" />
+    <Content Include="Views\Posts\EditWithCollection.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CollectionItemEditor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
